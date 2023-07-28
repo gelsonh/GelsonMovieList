@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
     />
-    <title>App Name: A Coding Challenge</title>
+    <title>Movie List: A Coding Challenge</title>
 
     <!-- Bootstrap CSS -->
     <link
@@ -39,7 +39,7 @@
         <div class="container-fluid">
           <a class="navbar-brand" href="/index.html">
             <img src="/img/mainLogo1.png" height="30" alt="developer logo" />
-            &nbsp;App Name</a
+            &nbsp;Movie List</a
           >
           <button
             class="navbar-toggler"
@@ -55,7 +55,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link" href="#">Home</a>
+                <a class="nav-link" href="/index.html">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/app.html"
@@ -85,16 +85,15 @@
 
     <!-- START: Main -->
     <main class="container py-3">
-      <h1>APP UI GOES HERE</h1>
-      <input
-        class="form-control"
-        id="message"
-        placeholder="Enter a message"
-        type="text"
-      />
-      <button class="btn btn-primary my-3" id="btnSubmit" type="button">
-        Display Message
+      <button class="btn btn-primary" onclick="displayMovies()">
+        Get Movie
       </button>
+      <h1 class="text-center mt-5 display-3">Popular Movies</h1>
+
+      <div
+        class="row row-cols-1 row-cols-sd-2 row-cols-lg-3 row-cols-xl-4 g-3 justify-content-center justify-content-xl-start"
+        id="movie-list"
+      ></div>
     </main>
     <!-- END: Main -->
 
@@ -119,6 +118,60 @@
       </div>
     </footer>
     <!-- END: Footer -->
+    <template id="movie-card-template">
+      <div class="col p-2">
+        <div class="card h-100">
+          <img class="card-img-top" alt="Movie Poster" />
+          <div class="card-body border-top bg-light">
+            <h5><</h5>
+
+            <p class="card-text"></p>
+          </div>
+          <div class="card-footer text-end">
+            <button
+              class="btn btn-primary"
+              data-bs-target="#movie-modal"
+              data-bs-toggle="modal"
+              onclick="showMovieDetails(this)"
+            >
+              More Info
+            </button>
+          </div>
+        </div>
+      </div></template
+    >
+
+    <!-- Modal -->
+
+    <div class="modal" tabindex="-1" id="movie-modal">
+      <div class="modal-dialog modal-dialog-centered modal-md modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Information</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p id="movie-modal-paragraph"></p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+
+            <button type="button" class="btn btn-primary">Click Here!</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Bootstrap JS -->
     <script
@@ -127,14 +180,15 @@
       crossorigin="anonymous"
     ></script>
     <!-- Sweet Alerts -->
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script src="/js/site.js"></script>
 
-    <script>
+    <!-- <script>
       document
         .getElementById("btnSubmit")
         .addEventListener("click", displayMessage);
-    </script>
+    </script> -->
   </body>
 </html>

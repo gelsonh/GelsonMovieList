@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
     />
-    <title>App Name: A Coding Challenge</title>
+    <title>Movie List: A Coding Challenge</title>
 
     <!-- Bootstrap CSS -->
     <link
@@ -41,7 +41,7 @@
         <div class="container-fluid">
           <a class="navbar-brand" href="/index.html">
             <img src="/img/mainLogo1.png" height="30" alt="developer logo" />
-            &nbsp;App Name</a
+            &nbsp;Movie List</a
           >
           <button
             class="navbar-toggler"
@@ -57,7 +57,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link" href="#">Home</a>
+                <a class="nav-link" href="/index.html">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/app.html">The App</a>
@@ -92,26 +92,135 @@
         <div class="col-12 col-lg-8">
           <pre class="line-numbers">
             <code class="language-js">
-              function displayMessage() {
-                let inputBox = document.getElementById("message");
-              
-                let message = inputBox.value;
-              
-                Swal.fire({
-                  backdrop: false,
-                  title: "App Name",
-                  text: message,
+              const API_KEY =
+              "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmY2U5NmYwNDIyODlhNWRjY2FiYmFjZDIzNTFiNzBhOCIsInN1YiI6IjY0YzE2ODMxZGY4NmE4MDBlNzgwMjQyNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.O2XFMmGJG8hkQnUFu7BbenNOkwlPw98z5SqCe4cJWJM";
+            
+            async function getMovies() {
+              try {
+                const response = await fetch("https://api.themoviedb.org/3/movie/popular", {
+                  headers: {
+                    Authorization: `Bearer ${API_KEY}`,
+                  },
                 });
+            
+                const data = await response.json();
+                return data;
+              } catch (error) {
+                console.error(error);
               }
+            }
+            
+            async function displayMovies() {
+              const movieListDiv = document.getElementById("movie-list");
+              const moviePosterTemplate = document.getElementById("movie-card-template");
+            
+              const data = await getMovies();
+            
+              const movies = data.results; // Movies is an array of objects
+            
+              movies.forEach((movie) => {
+                const movieCard = moviePosterTemplate.content.cloneNode(true);
+            
+                const titleElement = movieCard.querySelector(".card-body > h5");
+                titleElement.textContent = movie.title;
+            
+                const movieParagraphElement = movieCard.querySelector(".card-text");
+                movieParagraphElement.textContent = movie.overview;
+            
+                const movieImgElement = movieCard.querySelector(".card img");
+                movieImgElement.setAttribute(
+                  "src",
+                  `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                );
+            
+                const infoButton = movieCard.querySelector("button.btn");
+                infoButton.setAttribute("data-movieId", movie.id);
+            
+                movieListDiv.appendChild(movieCard);
+              });
+            }
+            
+            async function showMovieDetails(btn) {
+              const movieId = btn.getAttribute("data-movieId");
+              const response = await fetch(
+                `https://api.themoviedb.org/3/movie/${movieId}`,
+                {
+                  headers: {Authorization: `Bearer ${API_KEY}`},
+                }
+              );
+              const data = await response.json();
+            
+              const modalBody = document.querySelector("#movie-modal .modal-body");
+              modalBody.innerHTML = "";
+            
+              // Create row
+              const row = document.createElement("div");
+              row.classList.add("row");
+            
+              // Create left column
+              const leftCol = document.createElement("div");
+              leftCol.classList.add("col-sm-6", "col-md-4");
+            
+              // Add movie poster to left column
+              const poster = document.createElement("img");
+              poster.src = `https://image.tmdb.org/t/p/w500${data.poster_path}`;
+              poster.classList.add("movie-poster", "img-fluid");
+              leftCol.appendChild(poster);
+            
+              // Create right column
+              const rightCol = document.createElement("div");
+              rightCol.classList.add("col-sm-6", "col-md-8");
+            
+              // Add movie details to right column
+              const title = document.createElement("h2");
+              title.textContent = data.original_title;
+              rightCol.appendChild(title);
+            
+              const details = [
+                {label: "Rating", value: data.vote_average},
+                {label: "Runtime", value: `${data.runtime} minutes`},
+                {label: "Genres", value: data.genres.map((genre) => genre.name).join(", ")},
+                {label: "Plot", value: data.overview, class: "plot-summary"},
+                {label: "Cast", value: ""},
+              ];
+            
+              details.forEach((detail) => {
+                const detailElement = document.createElement("div");
+                detailElement.textContent = `${detail.label}: ${detail.value}`;
+                if (detail.class) detailElement.classList.add(detail.class);
+                rightCol.appendChild(detailElement);
+              });
+            
+              // Append columns to row
+              row.appendChild(leftCol);
+              row.appendChild(rightCol);
+            
+              // Append row to modal body
+              modalBody.appendChild(row);
+            }
+            
+            
             </code>
           </pre>
         </div>
         <div class="col-12 col-lg-4">
-          <p>The code is structured in one function</p>
-          <h5>displayMessage</h5>
+          <h5>Code Explanation</h5>
           <p>
-            Shows a SweetAlert with the value of the
-            <code>message</code>variable
+            This code is designed to display a list of popular movies and their
+            details using data from The Movie Database API. The API key is
+            stored as a constant and is used to authenticate requests to the
+            API. The <code>getMovies</code>
+            <code>function fetches data </code>about popular movies from the API
+            and returns it as a parsed JSON object. If an error occurs, it logs
+            the error to the console. The <code>displayMovies</code> function
+            displays a list of popular movies using a template, fetching data
+            about the movies using the <code>getMovies</code> function and
+            iterating over the array of movies using the
+            <code>forEach</code> method. The
+            <code>showMovieDetails</code> function displays detailed information
+            about a specific movie when its "More Info" button is clicked, using
+            the movie's ID to fetch detailed information from the API and
+            populating a modal with the information.T
           </p>
         </div>
       </div>
