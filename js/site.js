@@ -85,10 +85,24 @@ async function showMovieDetails(btn) {
   const details = [
     {label: "Rating", value: data.vote_average},
     {label: "Runtime", value: `${data.runtime} minutes`},
-    {label: "Genres", value: data.genres.map((genre) => genre.name).join(", ")},
+    {label: "Genres", value: getGenres(data.genres)},
     {label: "Plot", value: data.overview, class: "plot-summary"},
     {label: "Cast", value: ""},
   ];
+
+  details.forEach((detail) => {
+    const detailElement = document.createElement("div");
+    detailElement.textContent = `${detail.label}: ${detail.value}`;
+    if (detail.class) detailElement.classList.add(detail.class);
+    rightCol.appendChild(detailElement);
+  });
+
+  // Function to get genres as a comma-separated string
+  function getGenres(genres) {
+    return genres && Array.isArray(genres)
+      ? genres.map((genre) => genre.name).join(", ")
+      : "N/A";
+  }
 
   details.forEach((detail) => {
     const detailElement = document.createElement("div");

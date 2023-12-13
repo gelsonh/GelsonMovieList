@@ -1,6 +1,6 @@
 /* PrismJS 1.24.1
 https://prismjs.com/download.html#themes=prism-okaidia&languages=markup+css+clike+javascript&plugins=line-highlight+line-numbers+show-language+highlight-keywords+remove-initial-line-feed+keep-markup+unescaped-markup+normalize-whitespace+toolbar+match-braces */
-/**
+/*
  * okaidia theme for JavaScript, CSS and HTML
  * Loosely based on Monokai textmate theme by http://www.monokai.nl/
  * @author ocodia
@@ -152,9 +152,9 @@ pre[data-line] {
 @media print {
   .line-highlight {
     /*
-		 * This will prevent browsers from replacing the background color with white.
-		 * It's necessary because the element is layered on top of the displayed code.
-		 */
+      * This will prevent browsers from replacing the background color with white.
+      * It's necessary because the element is layered on top of the displayed code.
+      */
     -webkit-print-color-adjust: exact;
     color-adjust: exact;
   }
@@ -256,7 +256,7 @@ div.code-toolbar:hover > .toolbar {
 }
 
 /* Separate line b/c rules are thrown out if selector is invalid.
-   IE11 and old Edge versions don't support :focus-within. */
+    IE11 and old Edge versions don't support :focus-within. */
 div.code-toolbar:focus-within > .toolbar {
   opacity: 1;
 }

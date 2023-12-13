@@ -72,9 +72,9 @@
                   >The Repo</a
                 >
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a class="nav-link" href="#">About</a>
-              </li>
+              </li> -->
               <li class="nav-item">
                 <a class="nav-link" href="#">Blog</a>
               </li>
@@ -144,12 +144,11 @@
     >
 
     <!-- Modal -->
-
-    <div class="modal" tabindex="-1" id="movie-modal">
-      <div class="modal-dialog modal-dialog-centered modal-md modal-xl">
+    <div class="modal fade" tabindex="-1" id="movie-modal">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Information</h5>
+            <h5 class="modal-title">Movie Information</h5>
             <button
               type="button"
               class="btn-close"
@@ -158,7 +157,23 @@
             ></button>
           </div>
           <div class="modal-body">
-            <p id="movie-modal-paragraph"></p>
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-6 col-md-4">
+                  <!-- Left column with movie poster -->
+                  <img
+                    id="movie-poster"
+                    class="img-fluid mb-3"
+                    alt="Movie Poster"
+                  />
+                </div>
+                <div class="col-sm-6 col-md-8">
+                  <!-- Right column with movie details -->
+                  <h2 id="movie-title" class="mb-4"></h2>
+                  <div id="movie-details" class="mb-4"></div>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="modal-footer">
             <button
@@ -168,7 +183,6 @@
             >
               Close
             </button>
-
             <button type="button" class="btn btn-primary">Click Here!</button>
           </div>
         </div>
