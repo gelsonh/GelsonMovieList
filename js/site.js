@@ -87,7 +87,7 @@ async function showMovieDetails(btn) {
     {label: "Runtime", value: `${data.runtime} minutes`},
     {label: "Genres", value: getGenres(data.genres)},
     {label: "Plot", value: data.overview, class: "plot-summary"},
-    {label: "Cast", value: ""},
+    // {label: "Cast", value: ""},
   ];
 
   details.forEach((detail) => {
