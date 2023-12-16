@@ -104,13 +104,6 @@ async function showMovieDetails(btn) {
       : "N/A";
   }
 
-  details.forEach((detail) => {
-    const detailElement = document.createElement("div");
-    detailElement.textContent = `${detail.label}: ${detail.value}`;
-    if (detail.class) detailElement.classList.add(detail.class);
-    rightCol.appendChild(detailElement);
-  });
-
   // Append columns to row
   row.appendChild(leftCol);
   row.appendChild(rightCol);
