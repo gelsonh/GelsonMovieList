@@ -1,20 +1,27 @@
 const API_KEY =
   "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmY2U5NmYwNDIyODlhNWRjY2FiYmFjZDIzNTFiNzBhOCIsInN1YiI6IjY0YzE2ODMxZGY4NmE4MDBlNzgwMjQyNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.O2XFMmGJG8hkQnUFu7BbenNOkwlPw98z5SqCe4cJWJM";
 
-async function getMovies() {
-  try {
-    const response = await fetch("https://api.themoviedb.org/3/movie/popular", {
-      headers: {
-        Authorization: `Bearer ${API_KEY}`,
-      },
-    });
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error(error);
+  async function getMovies() {
+    try {
+      // Make a request to the popular movies API endpoint
+      const response = await fetch("https://api.themoviedb.org/3/movie/popular", {
+        headers: {
+          // Add the authorization token in the headers
+          Authorization: `Bearer ${API_KEY}`, 
+        },
+      });
+  
+      // Convert the response to JSON format
+      const data = await response.json();
+  
+      // Return the retrieved data
+      return data;
+    } catch (error) {
+      // Capture any errors that might occur during the request or JSON conversion
+      console.error(error); // Log the error to the console
+    }
   }
-}
+  
 
 async function displayMovies() {
   const movieListDiv = document.getElementById("movie-list");
